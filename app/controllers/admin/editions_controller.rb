@@ -316,7 +316,7 @@ private
   end
 
   def saved_confirmation_notice
-    { notice: "The document has been saved" }
+    { flash: { notice: "The document has been saved" } }
   end
 
   def new_edition
