@@ -11,7 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_10_16_170633) do
-  create_table "assets", charset: "utf8mb3", force: :cascade do |t|
+  create_table "assets", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "asset_manager_id", null: false
     t.string "variant", null: false
     t.datetime "created_at", null: false
@@ -95,7 +95,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_16_170633) do
     t.integer "call_for_evidence_response_form_data_id"
   end
 
-  create_table "call_for_evidence_responses", charset: "utf8mb3", force: :cascade do |t|
+  create_table "call_for_evidence_responses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "edition_id"
     t.text "summary"
     t.datetime "created_at", precision: nil
