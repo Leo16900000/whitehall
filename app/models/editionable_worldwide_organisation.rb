@@ -10,6 +10,7 @@ class EditionableWorldwideOrganisation < Edition
 
   has_many :offices, class_name: "WorldwideOffice", foreign_key: :edition_id, dependent: :destroy, autosave: true
   belongs_to :main_office, class_name: "WorldwideOffice"
+  before_destroy :destroy_associated_translated_offices
 
   class CloneOfficesTrait < Edition::Traits::Trait
     def process_associations_before_save(new_edition)
@@ -36,6 +37,10 @@ class EditionableWorldwideOrganisation < Edition
 
   def self.format_name
     "worldwide organisation"
+  end
+
+  def destroy_associated_translated_offices
+    binding.pry
   end
 
   alias_method :original_main_office, :main_office
