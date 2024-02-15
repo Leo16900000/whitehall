@@ -269,7 +269,23 @@ module PublishingApi
         world_location_names:,
       }
       details[:default_news_image] = present_default_news_image(item) if present_default_news_image(item).present?
+      details[:pages] = pages if pages.present?
       details
+    end
+
+    def pages
+      return unless item.corporate_information_pages.any?
+
+      item.corporate_information_pages.published.reject(&:about_page?).map do |page|
+        {
+          title: page.title,
+          slug: page.additional_path,
+          summary: page.summary,
+          body: [
+            { "content_type" => "text/govspeak", "content" => page.body },
+          ],
+        }
+      end
     end
   end
 end

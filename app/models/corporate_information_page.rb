@@ -192,10 +192,14 @@ class CorporateInformationPage < Edition
   def base_path
     return if owning_organisation.blank?
 
+    "#{owning_organisation.base_path}/#{additional_path}"
+  end
+
+  def additional_path
     if about_page?
-      "#{owning_organisation.base_path}/about"
+      "about"
     else
-      "#{owning_organisation.base_path}/about/#{slug}"
+      "about/#{slug}"
     end
   end
 
