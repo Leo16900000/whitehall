@@ -129,6 +129,10 @@ class WorldwideOrganisation < ApplicationRecord
     Plek.website_root + public_path(options)
   end
 
+  def multipart_content_paths
+    ([main_office] + home_page_offices).compact.map(&:base_path)
+  end
+
   def republish_embassies_index_page_to_publishing_api
     PresentPageToPublishingApiWorker.perform_async("PublishingApi::EmbassiesIndexPresenter")
   end

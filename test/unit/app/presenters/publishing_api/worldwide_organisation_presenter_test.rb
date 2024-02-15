@@ -29,6 +29,8 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
     create(:deputy_head_of_mission_role_appointment, role: secondary_role, person: deputy_head_of_mission)
     FactoryBot.create(:worldwide_organisation_role, worldwide_organisation: worldwide_org, role: secondary_role)
 
+    worldwide_org.reload
+
     public_path = worldwide_org.public_path
 
     expected_hash = {
@@ -41,7 +43,11 @@ class PublishingApi::WorldwideOrganisationPresenterTest < ActiveSupport::TestCas
       publishing_app: Whitehall::PublishingApp::WHITEHALL,
       rendering_app: Whitehall::RenderingApp::GOVERNMENT_FRONTEND,
       public_updated_at: worldwide_org.updated_at,
-      routes: [{ path: public_path, type: "exact" }],
+      routes: [
+        { path: public_path, type: "exact" },
+        { path: worldwide_org.reload.main_office.base_path, type: "exact" },
+        { path: worldwide_org.reload.home_page_offices.first.base_path, type: "exact" },
+      ],
       redirects: [],
       details: {
         body: "<div class=\"govspeak\"><p>Some stuff</p>\n</div>",
